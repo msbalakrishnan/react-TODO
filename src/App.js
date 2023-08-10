@@ -4,19 +4,27 @@ import { useState } from 'react';
 // import boo
 
 function App() {
-  const [alltaskval, change] = useState(["", 0, {}])
+  // window.localStorage.setItem("all",JSON.stringify(["",0,{}]));
+  const [alltaskval, change] = useState(JSON.parse(localStorage.getItem("all"))||["",0,{}]);
+  // console.log("ans ",typeof(alltaskval));
   function track(e) {
+    console.log(localStorage.getItem("MS"));
+    console.log(localStorage.getItem("all"));
     // console.log(e.target.value);
     alltaskval[0] = e.target.value;
     change([...alltaskval]);
   }
   const addtask = (e) => {
     e.preventDefault();
-    console.log(alltaskval);
+    // console.log(alltaskval);
+    // console.log("the ans = "+localStorage.getItem("all"));
     if (alltaskval[0] == "") alert("Please add task ! ..")
     else {
       alltaskval[2] = { ...alltaskval[2], [alltaskval[1] + 1]: alltaskval[0] };
       alltaskval[1] += 1;
+    window.localStorage.setItem("all",JSON.stringify(alltaskval));
+
+
     }
     alltaskval[0] = "";
     change([...alltaskval]);
@@ -41,6 +49,8 @@ function App() {
     alltaskval[2] = updatedList2;
     change([...alltaskval]);
     console.log(alltaskval);
+    window.localStorage.setItem("all",JSON.stringify(alltaskval));
+
     // var updatedList={a:6};
   }
   const arr = [1, 2, 3, 4]
